@@ -1,122 +1,123 @@
-# Fraud Detection Projesi - One-Class Classification
+# Fraud Detection Project - One-Class Classification
 
-## Proje Açıklaması
-Bu proje, One-Class Classification yöntemlerini kullanarak fraud (dolandırıcılık) tespiti yapmaktadır. Orijinal çalışmadan farklı olarak:
+## Project Description
 
-1. **Ensemble Metodlar**: Modellerin çıktılarını Voting ve Stacking ile birleştirerek daha güçlü performans elde edilmiştir.
-2. **Feature Engineering**: Medicare veri setine ratio feature'lar eklenerek anomali tespiti iyileştirilmiştir.
-3. **Veri Dönemi**: Bellek sınırlaması nedeniyle 2017-2019 dönemi kullanılmıştır (orijinal: 2013-2019).
+This project implements fraud detection using One-Class Classification methods. In contrast to the original study, the following enhancements were made:
 
-### Kullanılan Modeller
-- **One-Class SVM (OCSVM)** - Sigmoid ve Isotonic calibration
+1. **Ensemble Methods**: Model outputs were combined using Voting and Stacking techniques to achieve stronger performance.
+2. **Feature Engineering**: Ratio features were added to the Medicare dataset to improve anomaly detection.
+3. **Data Period**: Due to memory constraints, the 2017-2019 period was used (original: 2013-2019).
+
+### Models Used
+- **One-Class SVM (OCSVM)** - Sigmoid and Isotonic calibration
 - **Gaussian Mixture Model (GMM)** - One-class anomaly detection
 - **Isolation Forest** - Ensemble anomaly detection
-- **Local Outlier Factor (LOF)** - K-NN tabanlı anomaly detection
-- **OCAN** - One-Class Adversarial Networks (GAN tabanlı)
+- **Local Outlier Factor (LOF)** - K-NN based anomaly detection
+- **OCAN** - One-Class Adversarial Networks (GAN-based)
 
-### Ensemble Metodlar
-- **Soft Voting**: Tüm modellerin score ortalaması
-- **Weighted Voting**: AUC performansına göre ağırlıklı ortalama
-- **Stacking**: Meta-learner (Logistic Regression) ile birleştirme
+### Ensemble Methods
+- **Soft Voting**: Average of all model scores
+- **Weighted Voting**: Weighted average based on AUC performance
+- **Stacking**: Combination using meta-learner (Logistic Regression)
 
-### Veri Setleri
-1. **Credit Card Fraud Dataset** - Kaggle'dan (~150MB)
-2. **Medicare Fraud Dataset** - LEIE ve Medicare Provider verilerinin birleşimi (2017-2019, ~1.3GB)
+### Datasets
+1. **Credit Card Fraud Dataset** - From Kaggle (~150MB)
+2. **Medicare Fraud Dataset** - Combination of LEIE and Medicare Provider data (2017-2019, ~1.3GB)
 
 ---
 
-## Kurulum
+## Installation
 
-### 1. Gereksinimleri Yükleyin
+### 1. Install Requirements
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Veri Setlerini Hazırlayın
+### 2. Prepare Datasets
 
 #### Credit Card Dataset
-Kaggle'dan indirin: https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
+Download from Kaggle: https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
 
-İndirdikten sonra `creditcard.csv` dosyasını `Code_Data_Processing/` klasörüne koyun.
+After downloading, place the `creditcard.csv` file in the `Code_Data_Processing/` folder.
 
 #### Medicare Dataset
-`Combined_LEIE_Medicare_2017_2019_DOWNSIZED_1mil.csv` dosyası `data/` klasöründe mevcut.
+The `Combined_LEIE_Medicare_2017_2019_DOWNSIZED_1mil.csv` file is available in the `data/` folder.
 
 ---
 
-## Proje Yapısı
+## Project Structure
 ```
-proje/
-├── Code_Data_Processing/          # Veri işleme notebook'ları
+project/
+├── Code_Data_Processing/          # Data processing notebooks
 │   ├── credit_card_dataset_processing.ipynb
 │   ├── medicare_dataset_filter_and_combining.ipynb
 │   └── medicare_dataset_leie_merging.ipynb
-├── Code_Model_Training/           # Model eğitim notebook'ları
+├── Code_Model_Training/           # Model training notebooks
 │   ├── Model_Training_GMM_OCSVM_CreditCardDataset.ipynb
 │   ├── Model_Training_GMM_OCSVM_MedicareDataset.ipynb
 │   ├── Model_Training_IsolationForest_LOF_CreditCard.ipynb
 │   ├── Model_Training_OCAN_CreditCard.ipynb
 │   ├── Model_Training_OCAN_Medicare.ipynb
-│   └── Model_Ensemble_Methods.ipynb   ← YENİ! Ensemble metodlar
-├── Documents/                     # Rapor ve sunum dosyaları
-├── outputs/                       # İşlenmiş veri setleri ve grafikler
-├── pickled_storage/               # Model kayıtları ve ROC verileri
-├── data/                          # Ham veri setleri
+│   └── Model_Ensemble_Methods.ipynb   # NEW - Ensemble methods
+├── Documents/                     # Report and presentation files
+├── outputs/                       # Processed datasets and plots
+├── pickled_storage/               # Model checkpoints and ROC data
+├── data/                          # Raw datasets
 ├── requirements.txt
 └── README.md
 ```
 
 ---
 
-## Çalıştırma Sırası
+## Execution Order
 
-### Adım 1: Veri İşleme (İsteğe Bağlı)
-Veri setlerini sıfırdan işlemek için:
+### Step 1: Data Processing (Optional)
+To process datasets from scratch:
 ```bash
-# Credit Card verisini işle
+# Process Credit Card data
 jupyter notebook Code_Data_Processing/credit_card_dataset_processing.ipynb
 
-# Medicare verisini işle
+# Process Medicare data
 jupyter notebook Code_Data_Processing/medicare_dataset_leie_merging.ipynb
 ```
 
-### Adım 2: Model Eğitimi
+### Step 2: Model Training
 ```bash
-# Credit Card - GMM ve OCSVM
+# Credit Card - GMM and OCSVM
 jupyter notebook Code_Model_Training/Model_Training_GMM_OCSVM_CreditCardDataset.ipynb
 
-# Credit Card - Isolation Forest ve LOF
+# Credit Card - Isolation Forest and LOF
 jupyter notebook Code_Model_Training/Model_Training_IsolationForest_LOF_CreditCard.ipynb
 
 # Credit Card - OCAN
 jupyter notebook Code_Model_Training/Model_Training_OCAN_CreditCard.ipynb
 
-# Medicare - GMM ve OCSVM
+# Medicare - GMM and OCSVM
 jupyter notebook Code_Model_Training/Model_Training_GMM_OCSVM_MedicareDataset.ipynb
 
 # Medicare - OCAN
 jupyter notebook Code_Model_Training/Model_Training_OCAN_Medicare.ipynb
 ```
 
-### Adım 3: Ensemble Metodlar (YENİ!)
+### Step 3: Ensemble Methods (NEW)
 ```bash
-# Ensemble karşılaştırması
+# Ensemble comparison
 jupyter notebook Code_Model_Training/Model_Ensemble_Methods.ipynb
 ```
 
 ---
 
-## Sonuçları Yeniden Üretme
+## Reproducing Results
 
-Tüm sonuçları otomatik olarak üretmek için:
+To automatically reproduce all results:
 
 ```bash
-# 1. Veri işleme
+# 1. Data processing
 cd Code_Data_Processing
 jupyter nbconvert --to notebook --execute credit_card_dataset_processing.ipynb
 jupyter nbconvert --to notebook --execute medicare_dataset_leie_merging.ipynb
 
-# 2. Model eğitimi (uzun sürebilir)
+# 2. Model training (may take a long time)
 cd ../Code_Model_Training
 jupyter nbconvert --to notebook --execute Model_Training_GMM_OCSVM_CreditCardDataset.ipynb
 jupyter nbconvert --to notebook --execute Model_Ensemble_Methods.ipynb
@@ -124,49 +125,51 @@ jupyter nbconvert --to notebook --execute Model_Ensemble_Methods.ipynb
 
 ---
 
-## Demo için Hızlı Çalıştırma
+## Quick Demo Execution
 
-Demo sırasında sadece Ensemble notebook'u çalıştırmanız yeterlidir:
+For the demo, it is sufficient to run only the Ensemble notebook:
 
 ```bash
 cd Code_Model_Training
 jupyter notebook Model_Ensemble_Methods.ipynb
 ```
 
-Bu notebook:
-- ✅ Her iki veri setini otomatik yükler
-- ✅ Feature engineering uygular
-- ✅ 4 farklı model eğitir
-- ✅ 3 farklı ensemble yöntemi karşılaştırır
-- ✅ Karşılaştırma grafiği oluşturur
+This notebook:
+- Automatically loads both datasets
+- Applies feature engineering
+- Trains 4 different models
+- Compares 3 different ensemble methods
+- Generates comparison plots
 
 ---
 
-## Veri Kaynaklarına Erişim
+## Data Source Access
 
-| Veri Seti | Bağlantı |
-|-----------|----------|
+| Dataset | Link |
+|---------|------|
 | Credit Card Fraud | https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud |
 | Medicare Part D | https://data.cms.gov/provider-summary-by-type-of-service/medicare-part-d-prescribers |
 | LEIE Database | https://oig.hhs.gov/exclusions/exclusions_list.asp |
 
 ---
 
-## Önemli Notlar
+## Important Notes
 
-- GPU varsa OCAN modeli CUDA ile hızlanır
-- Ensemble notebook demo için optimize edilmiştir (~5-10 dk)
-- Tam veri seti eğitimi 1-2 saat sürebilir
+- If GPU is available, the OCAN model is accelerated with CUDA
+- The Ensemble notebook is optimized for demo (~5-10 min)
+- Full dataset training may take 1-2 hours
 - Credit Card dataset ~150MB, Medicare dataset ~1.3GB
 
 ---
 
-## Proje Katkıları
+## Project Contributions
 
-### Orijinal Paper'dan Farklar:
-1. **Ensemble Learning** - Modellerin birleştirilmesi
-2. **Feature Engineering** - Yeni ratio feature'lar
-3. **Karşılaştırmalı Analiz** - Tek model vs Ensemble performansı
+### Differences from the Original Paper:
+1. **Ensemble Learning** - Combination of models
+2. **Feature Engineering** - New ratio features
+3. **Comparative Analysis** - Single model vs Ensemble performance
 
-### Yazar
-BLG607 Data Mining - Dönem Projesi
+### Author
+**Bahakirbasogluu** - BLG607 Data Mining Term Project
+
+GitHub Repository: https://github.com/Bahakirbasogluu/Fraud-Detection
