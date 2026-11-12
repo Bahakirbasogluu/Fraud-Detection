@@ -105,7 +105,6 @@ Code_Model_Training/
   Model_Training_GMM_OCSVM_MedicareDataset.ipynb
   Model_Training_IsolationForest_LOF_CreditCard.ipynb
   Model_Ensemble_Methods.ipynb                single models vs ensembles on all three dataset variants
-Documents/                                    reference paper (PDF)
 outputs/
   ensemble_comparison_all.png
   ensemble_summary_all.csv                    mean and standard deviation of AUC and AUPRC per method
@@ -149,7 +148,7 @@ Fold splits and model seeds are fixed (`random_state=42`, incremented per repeat
 
 ## Reference
 
-J. L. Leevy, J. Hancock, T. M. Khoshgoftaar and A. Abdollah Zadeh, "One-Class Classifier Performance: Comparing Majority versus Minority Class Training," 2023 IEEE 35th International Conference on Tools with Artificial Intelligence (ICTAI), 2023. DOI: 10.1109/ICTAI59109.2023.00020. A copy is in `Documents/`.
+J. L. Leevy, J. Hancock, T. M. Khoshgoftaar and A. Abdollah Zadeh, "One-Class Classifier Performance: Comparing Majority versus Minority Class Training," 2023 IEEE 35th International Conference on Tools with Artificial Intelligence (ICTAI), 2023. DOI: [10.1109/ICTAI59109.2023.00020](https://doi.org/10.1109/ICTAI59109.2023.00020).
 
 ## Author
 
